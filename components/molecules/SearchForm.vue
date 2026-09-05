@@ -17,13 +17,18 @@
 const props = withDefaults(
   defineProps<{
     placeholder?: string;
+    /** Pre-fills the field, e.g. when a page mounts from a `?q=` in the URL
+     * (a shared link or a redirect from the header search). Read once on
+     * mount, not kept in sync afterwards — this stays an uncontrolled input
+     * so typing doesn't require a round trip through the parent. */
+    initialQuery?: string;
   }>(),
-  { placeholder: "Search heritage sites or municipalities" }
+  { placeholder: "Search heritage sites or municipalities", initialQuery: "" }
 );
 
 const emit = defineEmits<{ search: [query: string] }>();
 
-const query = ref("");
+const query = ref(props.initialQuery);
 const inputId = useId();
 
 function handleSubmit() {

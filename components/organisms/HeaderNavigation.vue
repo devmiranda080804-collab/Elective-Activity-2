@@ -38,6 +38,14 @@ const links = [
   { href: "/sites", label: "Heritage Sites" },
   { href: "/about", label: "About Pangasinan" },
 ];
+
+// Search has no results page of its own — it hands the query to /sites,
+// which does the actual filtering (see pages/sites/index.vue), so the
+// result set stays a normal, shareable/bookmarkable URL.
+function handleSearch(query: string) {
+  open.value = false;
+  navigateTo({ path: "/sites", query: query ? { q: query } : {} });
+}
 </script>
 
 <template>
@@ -72,7 +80,7 @@ const links = [
       </nav>
 
       <div class="hidden lg:block">
-        <SearchForm />
+        <SearchForm @search="handleSearch" />
       </div>
 
       <button
@@ -107,7 +115,7 @@ const links = [
             {{ link.label }}
           </NavigationItem>
         </nav>
-        <SearchForm />
+        <SearchForm @search="handleSearch" />
       </div>
     </Transition>
   </header>
