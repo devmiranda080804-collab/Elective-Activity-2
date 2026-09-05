@@ -1,0 +1,68 @@
+:root {
+  /* Performance decision: system font stacks instead of a downloaded
+   * webfont — removes a render-blocking network request entirely on
+   * 3G/4G. Swap in a self-hosted variable font later without touching
+   * any component, since every component reads these two variables. */
+  --font-fraunces: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+  --font-work-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background-color: #faf7f0;
+}
+
+/* Scroll-reveal: paired with the `v-reveal` directive (plugins/reveal.client.ts).
+ * Starts hidden only once JS confirms it can un-hide on scroll — the `.js-reveal`
+ * gate keeps content visible by default for no-JS/print/prerendered snapshots. */
+.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.js-reveal [data-reveal].is-revealed {
+  animation: reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes reveal-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Route transitions (see app.vue's <NuxtPage transition>). */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
