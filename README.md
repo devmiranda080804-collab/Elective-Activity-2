@@ -1,6 +1,6 @@
 # Pangasinan Heritage Digital Showcase
 
-**Student:** [Your Full Name]
+**Student:** Rojie Michael Miranda
 **Selected Framework:** Nuxt.js (Vue 3, `<script setup>`, TypeScript, Tailwind CSS)
 **Live Website:** [GitHub Pages URL — add after Deliverable 2.2 deployment]
 

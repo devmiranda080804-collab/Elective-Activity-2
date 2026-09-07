@@ -17,7 +17,16 @@ const swatches: { name: string; hex: string }[] = [
   { name: "rock", hex: color.rock },
 ];
 
-const icons: IconName[] = ["location", "search", "menu", "close", "chevronRight"];
+const icons: IconName[] = [
+  "location",
+  "search",
+  "menu",
+  "close",
+  "chevronRight",
+  "play",
+  "pause",
+  "arrowUp",
+];
 </script>
 
 <template>
