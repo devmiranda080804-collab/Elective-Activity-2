@@ -10,11 +10,17 @@ import type { HeritageSite } from "~/data/heritage-sites";
  *
  * Performance: a single `<img>` per slide (not decorative CSS
  * background-images) so the first slide is discoverable by the browser's
- * preload scanner and can be marked `fetchpriority="high"`/eager via
- * HeritageImage's existing `priority` prop — no extra network waterfall.
+ * preload scanner and can be marked `fetchpriority="high"`/eager. The other
+ * slides sit at `inset-0` behind it from the very first paint (needed for
+ * the crossfade), which means `loading="lazy"` does nothing for them — the
+ * browser's lazy-load check is purely about viewport intersection, and
+ * these are always "in viewport". Left unguarded, all three full-size
+ * photos would download simultaneously and compete with the LCP image for
+ * bandwidth. `slidesReady` withholds the other slides' `src` until shortly
+ * after mount, so the critical first image gets the network to itself.
  * The crossfade itself is pure CSS (`animation-delay` offsets on an
- * `opacity` keyframe), so there's no JS timer driving it and nothing here
- * blocks Time to Interactive.
+ * `opacity` keyframe), so there's no JS timer driving the animation loop —
+ * `slidesReady` only gates the initial image request.
  *
  * Accessibility: the slides are decorative (the real, described photos live
  * on the card grid and detail pages below), so each carries `alt=""`. The
@@ -31,6 +37,16 @@ const SLIDE_SECONDS = 6;
 const cycleSeconds = computed(() => props.sites.length * SLIDE_SECONDS);
 
 const playing = ref(true);
+
+// Deferred well past FCP/LCP so the second and third slide photos never
+// compete with the first slide (and the JS bundle) for bandwidth. They only
+// need to be ready by ~SLIDE_SECONDS in, so a short delay is invisible.
+const slidesReady = ref(false);
+onMounted(() => {
+  setTimeout(() => {
+    slidesReady.value = true;
+  }, 2000);
+});
 </script>
 
 <template>
@@ -50,6 +66,7 @@ const playing = ref(true);
         }"
       >
         <img
+          v-if="i === 0 || slidesReady"
           :src="`/images/${site.imageFile}`"
           alt=""
           :loading="i === 0 ? 'eager' : 'lazy'"

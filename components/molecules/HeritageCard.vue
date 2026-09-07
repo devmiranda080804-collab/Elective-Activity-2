@@ -40,7 +40,7 @@ defineProps<{
           class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         />
         <span
-          class="absolute left-3 top-3 rounded-full bg-sand/90 px-3 py-1 font-body text-xs font-medium text-clay shadow-sm backdrop-blur"
+          class="absolute left-3 top-3 rounded-full bg-sand/90 px-3 py-1 font-body text-xs font-medium text-clay-dark shadow-sm backdrop-blur"
         >
           {{ site.category }}
         </span>

@@ -48,7 +48,11 @@ const otherSites = heritageSites.filter((s) => s.slug !== site.slug);
         <Typography id="related-heading" variant="h2">Other heritage sites</Typography>
         <ul class="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
           <li v-for="(other, i) in otherSites" :key="other.slug" v-reveal="{ delay: i * 100 }">
-            <HeritageCard :site="other" />
+            <!-- Lighthouse traced this as the actual LCP element on mobile
+                 (it sits right at the fold) despite the hero photo above it
+                 being marked priority, so the first card needs the same
+                 treatment here. -->
+            <HeritageCard :site="other" :priority="i === 0" />
           </li>
         </ul>
       </div>

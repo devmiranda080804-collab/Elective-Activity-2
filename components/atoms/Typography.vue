@@ -27,7 +27,9 @@ const variantStyles: Record<Variant, string> = {
   h3: "font-display text-xl md:text-2xl leading-snug text-ink",
   body: "font-body text-base leading-relaxed text-ink",
   caption: "font-body text-sm leading-normal text-rock",
-  eyebrow: "font-body text-sm font-medium text-clay",
+  // clay-dark, not clay: clay-on-sand is only 4.15:1, just under WCAG AA's
+  // 4.5:1 minimum for normal-weight text this size (Lighthouse flags it).
+  eyebrow: "font-body text-sm font-medium text-clay-dark",
 };
 
 // `as` lets a caller keep correct heading hierarchy (e.g. render an h2 with

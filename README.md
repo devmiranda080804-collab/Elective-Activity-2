@@ -76,10 +76,13 @@ component change in one place.
 ## Swapping in a site photo
 
 Each heritage site's photo is a plain filename referenced from
-`data/heritage-sites.ts` (e.g. `imageFile: "hundred-islands.jpg"`). To
+`data/heritage-sites.ts` (e.g. `imageFile: "hundred-islands.webp"`). To
 replace one:
 
-1. Drop the new photo (`.jpg`/`.webp`/`.png`) into `public/images/`.
+1. Drop the new photo (`.jpg`/`.webp`/`.png`) into `public/images/`. Prefer
+   `.webp` and keep it no wider than ~1600px — these photos are used
+   full-bleed in the homepage hero, so an oversized source directly hurts
+   Lighthouse's Largest Contentful Paint score on mobile.
 2. Change that site's `imageFile` value in `data/heritage-sites.ts` to match
    the new filename.
 
@@ -87,7 +90,7 @@ No component code needs to change — every component (grid cards, the
 detail page, the homepage hero) reads the filename from this one data
 source.
 
-> **Note:** `hundred-islands.jpg` and `balungao-hot-spring.jpg` currently
+> **Note:** `hundred-islands.webp` and `balungao-hot-spring.webp` currently
 > carry a third-party watermark/logo baked into the image itself (from the
 > source they were pulled from) and should be replaced with your own or a
 > properly licensed photo before this site is shared publicly.

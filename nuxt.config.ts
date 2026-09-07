@@ -33,6 +33,14 @@ export default defineNuxtConfig({
             "Explore Alaminos' Hundred Islands, Bolinao's Lighthouse, and Balungao's Hot Spring — Pangasinan's iconic heritage sites.",
         },
       ],
+      // Browsers request /favicon.ico directly regardless of the <link>
+      // below (a legacy fallback) — without a file there, that request
+      // 404s and Lighthouse's Best Practices audit dings the page for a
+      // console error that has nothing to do with app code.
+      link: [
+        { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+        { rel: "icon", href: "/favicon.ico", sizes: "any" },
+      ],
       htmlAttrs: { lang: "en" },
     },
   },

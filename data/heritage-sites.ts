@@ -22,7 +22,7 @@ export const heritageSites: HeritageSite[] = [
       "Over a hundred limestone islets scattered across Lingayen Gulf, shaped by centuries of tide and wind.",
     imageAlt:
       "Aerial view of the limestone islets of Hundred Islands National Park in Alaminos, Pangasinan",
-    imageFile: "hundred-islands.jpg",
+    imageFile: "hundred-islands.webp",
   },
   {
     slug: "bolinao-lighthouse",
@@ -42,6 +42,6 @@ export const heritageSites: HeritageSite[] = [
     blurb:
       "Mineral-rich spring water fed by Mount Balungao, tucked at the base of an extinct volcano.",
     imageAlt: "Pools at Balungao Hot Spring at the foot of Mount Balungao, Pangasinan",
-    imageFile: "balungao-hot-spring.jpg",
+    imageFile: "balungao-hot-spring.webp",
   },
 ];
