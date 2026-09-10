@@ -86,9 +86,9 @@ const icons: IconName[] = [
     <section class="mx-auto max-w-5xl border-b border-limestone px-6 py-10">
       <Typography variant="h2" class="mb-6">Atom — Image</Typography>
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-        <HeritageImage :src="useAssetUrl(`/images/${heritageSites[0].imageFile}`)" :alt="heritageSites[0].imageAlt" aspect="video" />
-        <HeritageImage :src="useAssetUrl(`/images/${heritageSites[1].imageFile}`)" :alt="heritageSites[1].imageAlt" aspect="square" />
-        <HeritageImage :src="useAssetUrl(`/images/${heritageSites[2].imageFile}`)" :alt="heritageSites[2].imageAlt" aspect="portrait" />
+        <HeritageImage v-bind="useHeritagePhoto(heritageSites[0])" :alt="heritageSites[0].imageAlt" aspect="video" sizes="(min-width: 640px) 33vw, 100vw" />
+        <HeritageImage v-bind="useHeritagePhoto(heritageSites[1])" :alt="heritageSites[1].imageAlt" aspect="square" sizes="(min-width: 640px) 33vw, 100vw" />
+        <HeritageImage v-bind="useHeritagePhoto(heritageSites[2])" :alt="heritageSites[2].imageAlt" aspect="portrait" sizes="(min-width: 640px) 33vw, 100vw" />
       </div>
     </section>
 

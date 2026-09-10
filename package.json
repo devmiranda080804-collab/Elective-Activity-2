@@ -8,6 +8,7 @@
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "serve:static": "nuxt generate && serve .output/public -l 3000",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {

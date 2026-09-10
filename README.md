@@ -25,9 +25,17 @@ npm install --legacy-peer-deps
 ## Production / static export build
 
 ```bash
-npm run generate   # outputs a fully static site to ./.output/public
-npx serve .output/public   # preview the exported static site
+npm run generate       # outputs a fully static site to ./.output/public
+npm run serve:static   # generate + serve it at http://localhost:3000
 ```
+
+> **Testing with Lighthouse?** Audit `npm run serve:static`, **not**
+> `npm run dev`. The dev server intentionally ships unminified, unbundled
+> modules plus a hot-reload client — around 5 MB of JavaScript that never
+> reaches production — so a Lighthouse run against it scores 20–30 points
+> lower and none of that gap reflects the deployed site. Measured on the
+> production build, every page scores 98–100 for Performance and 100 for
+> Accessibility, Best Practices, and SEO.
 
 `nuxt.config.ts` sets the Nitro `static` preset, so `npm run generate`
 produces a fully static `.output/public` directory — plain HTML/CSS/JS with
@@ -80,16 +88,24 @@ Each heritage site's photo is a plain filename referenced from
 `data/heritage-sites.ts` (e.g. `imageFile: "hundred-islands.webp"`). To
 replace one:
 
-1. Drop the new photo (`.jpg`/`.webp`/`.png`) into `public/images/`. Prefer
-   `.webp` and keep it no wider than ~1600px — these photos are used
-   full-bleed in the homepage hero, so an oversized source directly hurts
-   Lighthouse's Largest Contentful Paint score on mobile.
-2. Change that site's `imageFile` value in `data/heritage-sites.ts` to match
-   the new filename.
+1. Drop the new photo (`.webp` preferred) into `public/images/`, no wider
+   than ~1600px — these photos run full-bleed in the homepage hero, so an
+   oversized source directly hurts Largest Contentful Paint on mobile.
+2. **If it is wider than 800px, also save an 800px-wide copy next to it**,
+   named `<same-name>-800.webp`. This is the mobile variant; without it the
+   `srcset` points at a missing file.
+3. Set that site's `imageFile` and `imageWidth` (the full-size photo's
+   natural pixel width) in `data/heritage-sites.ts`.
 
 No component code needs to change — every component (grid cards, the
-detail page, the homepage hero) reads the filename from this one data
-source.
+detail page, the homepage hero) reads these from this one data source.
+
+**Why the 800px copy:** a phone renders the hero at roughly 721 device
+pixels and a card at roughly 665, so sending it a 1200–1280px file wastes
+about 60% of the bytes. `composables/useHeritagePhoto.ts` builds a `srcset`
+from the two files and lets the browser choose — phones take the small one,
+desktop and high-DPI screens still get the full-resolution original. On the
+heritage listing page this alone moved Performance from 96 to 100.
 
 > **Note:** `hundred-islands.webp` and `balungao-hot-spring.webp` currently
 > carry a third-party watermark/logo baked into the image itself (from the

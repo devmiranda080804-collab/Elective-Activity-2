@@ -27,7 +27,12 @@ const otherSites = heritageSites.filter((s) => s.slug !== site.slug);
 
     <article class="mx-auto max-w-3xl px-4 pb-12 pt-4 sm:px-6 lg:px-8">
       <div class="animate-scale-in overflow-hidden rounded-xl">
-        <HeritageImage :src="useAssetUrl(`/images/${site.imageFile}`)" :alt="site.imageAlt" priority />
+        <HeritageImage
+          v-bind="useHeritagePhoto(site)"
+          :alt="site.imageAlt"
+          priority
+          sizes="(min-width: 768px) 720px, calc(100vw - 2rem)"
+        />
       </div>
       <div class="animate-fade-up" style="animation-delay: 100ms">
         <Typography variant="eyebrow" class="mt-6">{{ site.category }}</Typography>

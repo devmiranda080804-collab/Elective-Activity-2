@@ -67,7 +67,8 @@ onMounted(() => {
       >
         <img
           v-if="i === 0 || slidesReady"
-          :src="useAssetUrl(`/images/${site.imageFile}`)"
+          v-bind="useHeritagePhoto(site)"
+          sizes="100vw"
           alt=""
           :loading="i === 0 ? 'eager' : 'lazy'"
           :fetchpriority="i === 0 ? 'high' : 'auto'"

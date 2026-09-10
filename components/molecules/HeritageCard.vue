@@ -32,9 +32,10 @@ defineProps<{
     >
       <div class="relative overflow-hidden [&_img]:transition-transform [&_img]:duration-500 [&_img]:ease-out group-hover:[&_img]:scale-110">
         <HeritageImage
-          :src="useAssetUrl(`/images/${site.imageFile}`)"
+          v-bind="useHeritagePhoto(site)"
           :alt="site.imageAlt"
           :priority="priority"
+          sizes="(min-width: 1024px) 341px, (min-width: 640px) calc((100vw - 5rem) / 2), calc(100vw - 2rem)"
         />
         <div
           class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"

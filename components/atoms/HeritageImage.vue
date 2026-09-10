@@ -12,6 +12,11 @@
  * off-screen images; `priority` overrides that for the first, above-the-
  * fold image so it starts downloading immediately instead of waiting on
  * the lazy-load intersection check.
+ *
+ * `srcset`/`sizes` are plain pass-throughs so this atom stays dumb about
+ * which photo it is showing: the caller decides how wide the image renders
+ * at each breakpoint (`sizes`), and composables/useHeritagePhoto.ts builds
+ * the `srcset` candidate list.
  */
 
 type Aspect = "video" | "square" | "portrait";
@@ -22,8 +27,12 @@ const props = withDefaults(
     alt: string;
     aspect?: Aspect;
     priority?: boolean;
+    srcset?: string;
+    /** CSS width this image actually renders at, per breakpoint — tells the
+     * browser which `srcset` candidate to pick before layout is known. */
+    sizes?: string;
   }>(),
-  { aspect: "video" }
+  { aspect: "video", sizes: "100vw" }
 );
 
 const aspectClass: Record<Aspect, string> = {
@@ -37,6 +46,8 @@ const aspectClass: Record<Aspect, string> = {
   <div class="relative overflow-hidden bg-limestone" :class="aspectClass[props.aspect]">
     <img
       :src="src"
+      :srcset="srcset"
+      :sizes="srcset ? sizes : undefined"
       :alt="alt"
       :loading="priority ? 'eager' : 'lazy'"
       :fetchpriority="priority ? 'high' : 'auto'"
