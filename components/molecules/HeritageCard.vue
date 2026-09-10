@@ -32,7 +32,7 @@ defineProps<{
     >
       <div class="relative overflow-hidden [&_img]:transition-transform [&_img]:duration-500 [&_img]:ease-out group-hover:[&_img]:scale-110">
         <HeritageImage
-          :src="`/images/${site.imageFile}`"
+          :src="useAssetUrl(`/images/${site.imageFile}`)"
           :alt="site.imageAlt"
           :priority="priority"
         />

@@ -58,6 +58,7 @@ components/atoms/         Button, Typography, Icon, HeritageImage
 components/molecules/     HeritageCard, SearchForm, NavigationItem, BackToTop
 components/organisms/     HeritageGrid, HeaderNavigation, HeroBanner, SiteFooter
 plugins/reveal.ts         `v-reveal` scroll-in-view animation directive
+composables/useAssetUrl.ts  Prefixes /public asset paths with the GitHub Pages base URL
 design-tokens/            Canonical color & type tokens (mirrored in tailwind.config.ts)
 data/                     Heritage site content (decoupled from components)
 public/images/            Photography for the 3 heritage sites
